@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-70}
+      - VECTOR_DB_PATH=/app/chroma_db
+    restart: unless-stopped
